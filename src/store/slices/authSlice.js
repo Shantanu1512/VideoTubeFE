@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import axiosInstance from "../../helper/axiosHelper";
 const initialState = {
   status: false,
@@ -20,6 +19,19 @@ export const login = createAsyncThunk(
     }
   }
 );
+ 
+export const getCurrentUser = createAsyncThunk("/user/current", async () => {
+  try {
+    console.log("called method");
+
+    const response = await axiosInstance.get("/users/current-user");
+    console.log("RESPONSE THUNK", response);
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -33,11 +45,23 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action.payload);
         state.userData = action.payload;
-        console.log("PAYLOAD", state.userData);
       })
       .addCase(login.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getCurrentUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        console.log("RES DATAAAAA", action.payload);
+
+        state.userData = action.payload;
+      })
+      .addCase(getCurrentUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getCurrentUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

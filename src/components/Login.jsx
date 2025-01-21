@@ -1,32 +1,40 @@
 import React, { useState } from "react";
 import { Input, Button } from "./index";
 import { useForm } from "react-hook-form";
-import postApi from "../utils/fetchApi";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../store/slices/authSlice";
-
+import { login, getCurrentUser } from "../store/slices/authSlice";
+import Cookies from "js-cookie";
 function Login() {
   const { register, handleSubmit } = useForm();
   const [errors, setErrors] = useState("");
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userData, isLoading, error } = useSelector((state) => state.auth);
 
-  const handleLogin = () => {
+  const handleLogin = (data) => {
     const credentials = {
-      email: "shantanu12@gmail.com",
-      password: "12345678",
+      email: data.email,
+      password: data.password,
     };
-    dispatch(login(credentials))
-      .unwrap() // Optional: Use to handle resolved/rejected values directly
-      .then((response) => {
-        console.log("Login successful:", response);
-      })
-      .catch((error) => {
-        console.error("Login failed:", error);
-      });
+    if (data) {
+      const response = dispatch(login(credentials))
+        .unwrap() // Optional: Use to handle resolved/rejected values directly
+        .then((response) => {
+          console.log("Login successful:", response);
+          const accessToken = response.data.accessToken;
+          Cookies.set("token", "Shantanu", { expires: 7, secure: true });
+          const current = dispatch(getCurrentUser())
+            .unwrap()
+            .then((res) => {
+              console.log("CURRRRR", res);
+            });
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Login failed:", error);
+        });
+    }
   };
   return (
     // flex justify-center items-center w-full h-full bg-black ----  flex  border rounded-lg items-center justify-center text-white ----text-white space-y-2 w-full
