@@ -19,16 +19,16 @@ function Registration() {
         .then((response) => {
           console.log("RESSSSSSS", response);
 
-          //   const creds = {
-          //     email: response.email,
-          //     password: response.password,
-          //   };
-          //   dispatch(login(creds))
-          //     .unwrap()
-          //     .then((res) => {
-          //       console.log("REGISTERRED USER", res);
-          //       navigate("/");
-          //     });
+          const creds = {
+            email: response.email,
+            password: response.password,
+          };
+          dispatch(login(creds))
+            .unwrap()
+            .then((res) => {
+              console.log("REGISTERRED USER", res);
+              navigate("/");
+            });
         });
     }
   };
@@ -69,7 +69,7 @@ function Registration() {
 
         <div className="flex flex-col border-white border-2 w-full sm:w-96">
           <Input
-            // label="Avatar"
+            label="Avatar"
             type="file"
             capture="environment"
             placeholder="Upload an image"
@@ -80,7 +80,7 @@ function Registration() {
           />
 
           <Input
-            // label="CoverImage"
+            label="CoverImage"
             type="file"
             control={control}
             className="w-full"

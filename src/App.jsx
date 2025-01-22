@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import postApi from "./utils/fetchApi";
-import { Login } from "./components/index";
-import Registration from "./components/Registration";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -15,7 +13,7 @@ function App() {
 
   return (
     <div className="w-full h-screen">
-      <Registration />
+      <Outlet />
     </div>
   );
 }
