@@ -13,7 +13,13 @@ export const login = createAsyncThunk(
   "user/login",
   async (credentials, { rejectWithValue }) => {
     try {
+      const formData = new FormData();
+
+      formData.append("email", credentials.email);
+      formData.append("password", credentials.password);
+
       const response = await axiosInstance.post("/users/login", credentials);
+      console.log("Login RESPONSE", response.data);
 
       return response.data;
     } catch (error) {
