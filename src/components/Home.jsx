@@ -13,8 +13,8 @@ function Home() {
     dispatch(getAllVideos(limit, page));
   }, [dispatch]);
   return (
-    <div className="grid grid-cols-4 w-full bg-gray-800 h-full">
-      <div className="col-start-2 col-end-5 grid grid-cols-3 grid-rows-3 border-2 border-white bg-black gap-x-8 gap-y-4">
+    <div className="w-full bg-gray-900 h-full">
+      <div className="grid grid-cols-3 gap-4 ">
         {videos.map((video, index) => (
           <div className="bg-black-900">
             <VideoList

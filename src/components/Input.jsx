@@ -7,7 +7,6 @@ function Input({ label, type, className = "", ...props }, ref) {
         {label && <label className=" inline-block mb-1 pl-2">{label}</label>}
       </div>
       <input
-      
         type={type}
         className={`border-black border-solid border-2 p-2 m-2${className}`}
         ref={ref}

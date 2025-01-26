@@ -6,16 +6,18 @@ import Registration from "./Registration";
 import Home from "./Home";
 import Video from "./Video";
 import VideoList from "./VideoList";
-import Sidepanel from "./Sidepanel";
+import Sidepanel from "./Header/Sidepanel";
+import Layout from "./Layout";
 
 export {
-  Input,
   Button,
   Login,
   Image,
   Registration,
   Home,
+  Input,
   Video,
   VideoList,
   Sidepanel,
+  Layout,
 };

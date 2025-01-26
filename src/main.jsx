@@ -5,7 +5,14 @@ import App from "./App.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import store from "./store/store.js";
 import { Provider } from "react-redux";
-import { Login, Registration, Home } from "./components/index.js";
+import {
+  Login,
+  Registration,
+  Home,
+  Sidepanel,
+  Layout,
+} from "./components/index.js";
+import SearchBar from "./components/Header/SearchBar.jsx";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +21,13 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Layout />,
+        children: [
+          {
+            path: "",
+            element: <Home />,
+          },
+        ],
       },
       {
         path: "/signup",
@@ -23,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/test",
+        element: <Sidepanel />,
       },
     ],
   },
